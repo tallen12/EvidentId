@@ -142,15 +142,15 @@ def scrape(city,state,day,month,year,dest="output",output="file"):
     check_temp=re.compile("^(Mean|Max|Min) Temperature\s*$")
     parsed={x['name']:{y:x[y] for y in x if not y=='name'} for x in html_parser.rows if check_temp.match(x['name'])}
     data={"Location":city,"Day":day,"Year":year,"Month":month,"Data":parsed}
-    jsonoutput=json.dumps(data)
+    json_output=json.dumps(data)
 
     #Write To Output, Right now only a file
     if output=="file" and not dest==None:
         with open(dest,'w+') as f:
-            f.write(jsonoutput)
+            f.write(json_output)
             return "Good"
     elif output=='func':
-        return jsonoutput
+        return json_output
     else:
         return "Pick a valid output method"
 
